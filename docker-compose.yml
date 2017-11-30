@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+    marcons:
+        image: 'jssbbonilla/mariabuilderspv3:latest'
+        container_name: 'mariadb'
+        environment: 
+        - 'MYSQL_ROOT_PASSWORD=12345'
+        ports:
+        - '3306:3306'
+        volumes:
+        - /mysqlacad:/var/lib/mysql
+    paycons: 
+        image: 'jssbbonilla/payaraserverbuilderspv3:latest'  
+        container_name: "payara"
+        depends_on:
+        - 'marcons'
+        ports:
+        - "8080:8080"
+        - "4848:4848"
+        entrypoint:
+        - "bin/asadmin"
+        - "start-domain"
+        - "-v"
+    
+
+
+ 
+   
+    
+        
